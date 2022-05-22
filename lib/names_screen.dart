@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:football_goal_app/mobile_logic.dart';
 
 import 'game_screen.dart';
 
@@ -34,8 +35,9 @@ class _NamesScreenState extends State<NamesScreen> {
             const Text("Enter your team names:"),
             const SizedBox(width: 20, height: 20),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 450, vertical: 16),
+              padding: EdgeInsets.symmetric(
+                  horizontal: adjustPaddingSizeForMobile().toDouble(),
+                  vertical: 16),
               child: TextField(
                 controller: firstNameEditController,
                 decoration: const InputDecoration(
@@ -45,8 +47,9 @@ class _NamesScreenState extends State<NamesScreen> {
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 450, vertical: 16),
+              padding: EdgeInsets.symmetric(
+                  horizontal: adjustPaddingSizeForMobile().toDouble(),
+                  vertical: 16),
               child: TextField(
                 controller: secondNameEditController,
                 decoration: const InputDecoration(

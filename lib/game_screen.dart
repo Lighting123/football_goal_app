@@ -45,37 +45,41 @@ class _GameScreenState extends State<GameScreen> {
         title: const Text("Game"),
       ),
       body: Center(
-          child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(widget.firstTeamName),
-              const SizedBox(width: 20, height: 20),
-              Text('$firstTeamScore',
-                  style: Theme.of(context).textTheme.headline4),
-              const SizedBox(width: 10, height: 10),
-              OutlinedButton(onPressed: goal1, child: const Text("GOAL!"))
-            ],
-          ),
-          const SizedBox(width: 150, height: 150),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(widget.secondTeamName),
-              const SizedBox(width: 20, height: 20),
-              Text('$secondTeamScore',
-                  style: Theme.of(context).textTheme.headline4),
-              const SizedBox(width: 10, height: 10),
-              OutlinedButton(onPressed: goal2, child: const Text("GOAL!!"))
-            ],
-          ),
-          const SizedBox(width: 60, height: 60),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              OutlinedButton(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(widget.firstTeamName),
+                    const SizedBox(width: 20, height: 20),
+                    Text('$firstTeamScore',
+                        style: Theme.of(context).textTheme.headline4),
+                    const SizedBox(width: 10, height: 10),
+                    OutlinedButton(onPressed: goal1, child: const Text("GOAL!"))
+                  ],
+                ),
+                const SizedBox(width: 100, height: 100),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(widget.secondTeamName),
+                    const SizedBox(width: 20, height: 20),
+                    Text('$secondTeamScore',
+                        style: Theme.of(context).textTheme.headline4),
+                    const SizedBox(width: 10, height: 10),
+                    OutlinedButton(
+                        onPressed: goal2, child: const Text("GOAL!!"))
+                  ],
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: OutlinedButton(
                   onPressed: () {
                     Navigator.push(
                         context,
@@ -86,11 +90,11 @@ class _GameScreenState extends State<GameScreen> {
                                 firstTeamScore: firstTeamScore,
                                 secondTeamScore: secondTeamScore)));
                   },
-                  child: const Text("End Game"))
-            ],
-          )
-        ],
-      )),
+                  child: const Text("End Game")),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
