@@ -13,13 +13,28 @@ class NamesScreen extends StatefulWidget {
 class _NamesScreenState extends State<NamesScreen> {
   final firstNameEditController = TextEditingController();
   final secondNameEditController = TextEditingController();
+  final goalLimitController = TextEditingController();
 
   @override
   void dispose() {
     firstNameEditController.dispose();
     secondNameEditController.dispose();
-
+    goalLimitController.dispose();
     super.dispose();
+  }
+
+  int? getGoalLimit() {
+    if (goalLimitController.text.isNotEmpty) {
+      int? temp;
+      try {
+        temp = int.parse(goalLimitController.text);
+      } catch (e) {
+        temp = null;
+      }
+      return temp;
+    } else {
+      return null;
+    }
   }
 
   @override
@@ -41,7 +56,7 @@ class _NamesScreenState extends State<NamesScreen> {
               child: TextField(
                 controller: firstNameEditController,
                 decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
+                  border: OutlineInputBorder(),
                   hintText: 'Enter first team name',
                 ),
               ),
@@ -53,23 +68,53 @@ class _NamesScreenState extends State<NamesScreen> {
               child: TextField(
                 controller: secondNameEditController,
                 decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
+                  border: OutlineInputBorder(),
                   hintText: 'Enter second team name',
                 ),
               ),
             ),
-            const SizedBox(width: 40, height: 40),
-            OutlinedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => GameScreen(
-                                firstTeamName: firstNameEditController.text,
-                                secondTeamName: secondNameEditController.text,
-                              )));
-                },
-                child: const Text("Enter"))
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: adjustPaddingSizeForMobile().toDouble(),
+                  vertical: 16),
+              child: TextField(
+                controller: goalLimitController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter the number of goals to win',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: OutlinedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => GameScreen(
+                                  firstNameEditController.text,
+                                  secondNameEditController.text,
+                                  goalLimit: getGoalLimit(),
+                                )));
+                  },
+                  child: const Text("Enter")),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: OutlinedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const GameScreen(
+                                  "First Team",
+                                  "Second Team",
+                                  goalLimit: 5,
+                                )));
+                  },
+                  child: const Text("Skip")),
+            )
           ],
         ),
       ),

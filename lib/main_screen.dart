@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:football_goal_app/list.dart';
 
 import 'names_screen.dart';
 
@@ -25,7 +26,16 @@ class WelcomePage extends StatelessWidget {
                         builder: (context) => const NamesScreen()),
                   );
                 },
-                child: const Text("Start Game"))
+                child: const Text("Start Game")),
+            const SizedBox(width: 10, height: 10),
+            OutlinedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ListScreen()),
+                  );
+                },
+                child: const Text("List"))
           ],
         ),
       ),
