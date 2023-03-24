@@ -39,7 +39,7 @@ class OverviewScreen extends StatelessWidget {
                       Text(firstTeamName),
                       const SizedBox(width: 20, height: 20),
                       Text('$firstTeamScore',
-                          style: Theme.of(context).textTheme.headline6),
+                          style: Theme.of(context).textTheme.titleLarge),
                     ],
                   ),
                   const SizedBox(width: 100, height: 100),
@@ -50,7 +50,7 @@ class OverviewScreen extends StatelessWidget {
                       const SizedBox(width: 20, height: 20),
                       Text(
                         '$secondTeamScore',
-                        style: Theme.of(context).textTheme.headline6,
+                        style: Theme.of(context).textTheme.titleLarge,
                       )
                     ],
                   ),

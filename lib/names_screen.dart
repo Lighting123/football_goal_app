@@ -13,28 +13,14 @@ class NamesScreen extends StatefulWidget {
 class _NamesScreenState extends State<NamesScreen> {
   final firstNameEditController = TextEditingController();
   final secondNameEditController = TextEditingController();
-  final goalLimitController = TextEditingController();
+  int? goalLimit;
+int? nullNum;
 
   @override
   void dispose() {
     firstNameEditController.dispose();
     secondNameEditController.dispose();
-    goalLimitController.dispose();
     super.dispose();
-  }
-
-  int? getGoalLimit() {
-    if (goalLimitController.text.isNotEmpty) {
-      int? temp;
-      try {
-        temp = int.parse(goalLimitController.text);
-      } catch (e) {
-        temp = null;
-      }
-      return temp;
-    } else {
-      return null;
-    }
   }
 
   @override
@@ -74,17 +60,26 @@ class _NamesScreenState extends State<NamesScreen> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: adjustPaddingSizeForMobile().toDouble(),
-                  vertical: 16),
-              child: TextField(
-                controller: goalLimitController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter the number of goals to win',
-                ),
-              ),
-            ),
+                padding: EdgeInsets.symmetric(
+                    horizontal: adjustPaddingSizeForMobile().toDouble(),
+                    vertical: 16),
+                child: DropdownButton(
+                  value: goalLimit,
+                  items: [
+const DropdownMenuItem(value: 2, child: Text("2")),
+                    const DropdownMenuItem(value: 5, child: Text("5")),
+                    const DropdownMenuItem(value: 10, child: Text("10")),
+    DropdownMenuItem(value: nullNum, child: const Text("None")),
+                  ],
+                  onChanged: (value) {
+                    if (value is int) {
+                      setState(() {
+                        goalLimit = value;
+                      });
+                    } else {}
+                  },
+                  isExpanded: true,
+                )),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: OutlinedButton(
@@ -95,7 +90,7 @@ class _NamesScreenState extends State<NamesScreen> {
                             builder: (context) => GameScreen(
                                   firstNameEditController.text,
                                   secondNameEditController.text,
-                                  goalLimit: getGoalLimit(),
+                                  goalLimit: goalLimit,
                                 )));
                   },
                   child: const Text("Enter")),

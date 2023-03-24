@@ -146,10 +146,10 @@ class GoalScoreText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (goalLimit == null) {
-      return Text('$teamScore', style: Theme.of(context).textTheme.headline6);
+      return Text('$teamScore', style: Theme.of(context).textTheme.titleLarge);
     } else {
       return Text('$teamScore/$goalLimit',
-          style: Theme.of(context).textTheme.headline6);
+          style: Theme.of(context).textTheme.titleLarge);
     }
   }
 }

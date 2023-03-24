@@ -44,7 +44,7 @@ class ListItem extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               "$index.",
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           Padding(
