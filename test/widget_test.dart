@@ -7,14 +7,14 @@
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:football_goal_app/main_screen.dart';
+import 'package:football_goal_app/screens/main_screen.dart';
 
 void main() {
   testWidgets('Goal button works test', (WidgetTester tester) async {
     await tester.pumpWidget(const WelcomePage());
 
-    final firstTeamNameFinder = find.text('Start the game');
+    final firstPlayerNameFinder = find.text('Start the game');
 
-    expect(firstTeamNameFinder, findsOneWidget);
+    expect(firstPlayerNameFinder, findsOneWidget);
   });
 }

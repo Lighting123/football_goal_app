@@ -7,6 +7,7 @@ class NamesScreen extends StatefulWidget {
   const NamesScreen({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _NamesScreenState createState() => _NamesScreenState();
 }
 
@@ -14,7 +15,7 @@ class _NamesScreenState extends State<NamesScreen> {
   final firstNameEditController = TextEditingController();
   final secondNameEditController = TextEditingController();
   int? goalLimit;
-int? nullNum;
+  int? nullNum;
 
   @override
   void dispose() {
@@ -43,7 +44,7 @@ int? nullNum;
                 controller: firstNameEditController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Enter first team name',
+                  hintText: 'Enter first player name',
                 ),
               ),
             ),
@@ -55,7 +56,7 @@ int? nullNum;
                 controller: secondNameEditController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Enter second team name',
+                  hintText: 'Enter second player name',
                 ),
               ),
             ),
@@ -66,10 +67,10 @@ int? nullNum;
                 child: DropdownButton(
                   value: goalLimit,
                   items: [
-const DropdownMenuItem(value: 2, child: Text("2")),
+                    const DropdownMenuItem(value: 2, child: Text("2")),
                     const DropdownMenuItem(value: 5, child: Text("5")),
                     const DropdownMenuItem(value: 10, child: Text("10")),
-    DropdownMenuItem(value: nullNum, child: const Text("None")),
+                    DropdownMenuItem(value: nullNum, child: const Text("None")),
                   ],
                   onChanged: (value) {
                     if (value is int) {
@@ -103,8 +104,8 @@ const DropdownMenuItem(value: 2, child: Text("2")),
                         context,
                         MaterialPageRoute(
                             builder: (context) => const GameScreen(
-                                  "First Team",
-                                  "Second Team",
+                                  "First Player",
+                                  "Second Player",
                                   goalLimit: 5,
                                 )));
                   },

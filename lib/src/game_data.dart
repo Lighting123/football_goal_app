@@ -5,24 +5,32 @@ part 'game_data.g.dart';
 @HiveType(typeId: 78)
 class GameData extends HiveObject {
   GameData(
-      {required this.firstTeamName,
-      required this.firstTeamScore,
-      required this.secondTeamName,
-      required this.secondTeamScore,
+      {required this.firstPlayerName,
+      required this.firstPlayerGoals,
+      required this.secondPlayerName,
+      required this.secondPlayerGoals,
       required this.goalLimit});
 
   @HiveField(0)
-  String firstTeamName;
+  String firstPlayerName;
 
   @HiveField(1)
-  String secondTeamName;
+  String secondPlayerName;
 
   @HiveField(2)
-  int firstTeamScore;
+  List<Goal> firstPlayerGoals;
 
   @HiveField(3)
-  int secondTeamScore;
+  List<Goal> secondPlayerGoals;
 
   @HiveField(4)
   int? goalLimit;
+}
+
+@HiveType(typeId: 79)
+class Goal {
+  Goal({required this.timeScored});
+
+  @HiveField(0)
+  DateTime timeScored;
 }

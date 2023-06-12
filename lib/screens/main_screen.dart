@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:football_goal_app/list.dart';
 
+import 'list.dart';
 import 'names_screen.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -10,7 +10,7 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Welcome"),
+        title: const Text("Home"),
       ),
       body: Center(
         child: Column(
@@ -35,7 +35,7 @@ class WelcomePage extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => const ListScreen()),
                   );
                 },
-                child: const Text("List"))
+                child: const Text("List of Game Saves"))
           ],
         ),
       ),

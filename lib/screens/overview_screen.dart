@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:football_goal_app/boxes.dart';
-import 'package:football_goal_app/main_screen.dart';
-import 'package:football_goal_app/names_screen.dart';
 import 'package:football_goal_app/src/game_data.dart';
+
+import 'main_screen.dart';
+import 'names_screen.dart';
 
 class OverviewScreen extends StatelessWidget {
   const OverviewScreen(
-    this.firstTeamName,
-    this.secondTeamName,
-    this.firstTeamScore,
-    this.secondTeamScore, {
+    this.firstPlayerName,
+    this.secondPlayerName,
+    this.firstPlayerGoals,
+    this.secondPlayerGoals, {
     Key? key,
     this.goalLimit,
   }) : super(key: key);
 
-  final String firstTeamName;
-  final String secondTeamName;
-  final int firstTeamScore;
-  final int secondTeamScore;
+  final String firstPlayerName;
+  final String secondPlayerName;
+  final List<Goal> firstPlayerGoals;
+  final List<Goal> secondPlayerGoals;
   final int? goalLimit;
 
   @override
@@ -36,9 +37,9 @@ class OverviewScreen extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(firstTeamName),
+                      Text(firstPlayerName),
                       const SizedBox(width: 20, height: 20),
-                      Text('$firstTeamScore',
+                      Text('${firstPlayerGoals.length}',
                           style: Theme.of(context).textTheme.titleLarge),
                     ],
                   ),
@@ -46,10 +47,10 @@ class OverviewScreen extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(secondTeamName),
+                      Text(secondPlayerName),
                       const SizedBox(width: 20, height: 20),
                       Text(
-                        '$secondTeamScore',
+                        '${secondPlayerGoals.length}',
                         style: Theme.of(context).textTheme.titleLarge,
                       )
                     ],
@@ -57,10 +58,10 @@ class OverviewScreen extends StatelessWidget {
                 ],
               ),
               WinText(
-                firstTeamName: firstTeamName,
-                secondTeamName: secondTeamName,
-                secondTeamScore: secondTeamScore,
-                firstTeamScore: firstTeamScore,
+                firstPlayerName: firstPlayerName,
+                secondPlayerName: secondPlayerName,
+                secondPlayerGoals: secondPlayerGoals,
+                firstPlayerGoals: firstPlayerGoals,
                 goalLimit: goalLimit,
               ),
               Padding(
@@ -79,8 +80,8 @@ class OverviewScreen extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            addGameSave(firstTeamName, secondTeamName, firstTeamScore,
-                secondTeamScore, goalLimit);
+            addGameSave(firstPlayerName, secondPlayerName, firstPlayerGoals,
+                secondPlayerGoals, goalLimit);
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const WelcomePage()));
           },
@@ -94,36 +95,40 @@ class WinText extends StatelessWidget {
   const WinText({
     Key? key,
     required this.goalLimit,
-    required this.firstTeamName,
-    required this.secondTeamName,
-    required this.firstTeamScore,
-    required this.secondTeamScore,
+    required this.firstPlayerName,
+    required this.secondPlayerName,
+    required this.firstPlayerGoals,
+    required this.secondPlayerGoals,
   }) : super(key: key);
 
   final int? goalLimit;
-  final String firstTeamName;
-  final String secondTeamName;
-  final int firstTeamScore;
-  final int secondTeamScore;
+  final String firstPlayerName;
+  final String secondPlayerName;
+  final List<Goal> firstPlayerGoals;
+  final List<Goal> secondPlayerGoals;
   @override
   Widget build(BuildContext context) {
-    if (firstTeamScore == goalLimit) {
-      return Text("$firstTeamName Won");
-    } else if (secondTeamScore == goalLimit) {
-      return Text("$secondTeamName Won");
+    if (firstPlayerGoals.length == goalLimit) {
+      return Text("$firstPlayerName Won");
+    } else if (secondPlayerGoals.length == goalLimit) {
+      return Text("$secondPlayerName Won");
     } else {
       return const Text("No goal limit or no team won");
     }
   }
 }
 
-Future addGameSave(String firstTeamName, String secondTeamName,
-    int firstTeamScore, int secondTeamScore, int? goalLimt) async {
+Future addGameSave(
+    String firstPlayerName,
+    String secondPlayerName,
+    List<Goal> firstPlayerGoals,
+    List<Goal> secondPlayerGoals,
+    int? goalLimt) async {
   final gameSave = GameData(
-      firstTeamName: firstTeamName,
-      firstTeamScore: firstTeamScore,
-      secondTeamName: secondTeamName,
-      secondTeamScore: secondTeamScore,
+      firstPlayerName: firstPlayerName,
+      firstPlayerGoals: firstPlayerGoals,
+      secondPlayerName: secondPlayerName,
+      secondPlayerGoals: secondPlayerGoals,
       goalLimit: goalLimt);
 
   final box = Boxes.getGameSaves();

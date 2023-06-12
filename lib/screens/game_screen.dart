@@ -1,47 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:football_goal_app/overview_screen.dart';
+import 'package:football_goal_app/src/game_data.dart';
+
+import 'overview_screen.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen(
-    this.firstTeamName,
-    this.secondTeamName, {
+    this.firstPlayerName,
+    this.secondPlayerName, {
     Key? key,
     this.goalLimit,
   }) : super(key: key);
 
-  final String firstTeamName;
-  final String secondTeamName;
+  final String firstPlayerName;
+  final String secondPlayerName;
   final int? goalLimit;
 
   @override
+  // ignore: library_private_types_in_public_api
   _GameScreenState createState() => _GameScreenState();
 }
 
 class _GameScreenState extends State<GameScreen> {
-  // This is the first team score
-  int firstTeamScore = 0;
+  // This is the list of goals scored by the first player
+  List<Goal> firstPlayerGoals = [];
 
-  // This is the second team score
-  int secondTeamScore = 0;
+  // This is the list of goals scored by the second player
+  List<Goal> secondPlayerGoals = [];
 
   // This function is triggered when the first team scores a goal
   void goal1() {
     // This is to inform flutter that first team score has
     // changed and to update the UI.
-    if (firstTeamScore == widget.goalLimit) {
+    if (firstPlayerGoals.length == widget.goalLimit) {
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => OverviewScreen(
-                    widget.firstTeamName,
-                    widget.secondTeamName,
-                    firstTeamScore,
-                    secondTeamScore,
+                    widget.firstPlayerName,
+                    widget.secondPlayerName,
+                    firstPlayerGoals,
+                    secondPlayerGoals,
                     goalLimit: widget.goalLimit,
                   )));
     } else {
       setState(() {
-        firstTeamScore++;
+        firstPlayerGoals.add(Goal(timeScored: DateTime.now()));
       });
     }
   }
@@ -50,20 +53,20 @@ class _GameScreenState extends State<GameScreen> {
   void goal2() {
     // This is to inform flutter that second team score has
     // changed and to update the UI.
-    if (secondTeamScore == widget.goalLimit) {
+    if (secondPlayerGoals.length == widget.goalLimit) {
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => OverviewScreen(
-                    widget.firstTeamName,
-                    widget.secondTeamName,
-                    firstTeamScore,
-                    secondTeamScore,
+                    widget.firstPlayerName,
+                    widget.secondPlayerName,
+                    firstPlayerGoals,
+                    secondPlayerGoals,
                     goalLimit: widget.goalLimit,
                   )));
     } else {
       setState(() {
-        secondTeamScore++;
+        secondPlayerGoals.add(Goal(timeScored: DateTime.now()));
       });
     }
   }
@@ -84,11 +87,11 @@ class _GameScreenState extends State<GameScreen> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(widget.firstTeamName),
+                    Text(widget.firstPlayerName),
                     const SizedBox(width: 20, height: 20),
                     GoalScoreText(
                       goalLimit: widget.goalLimit,
-                      teamScore: firstTeamScore,
+                      playerScore: firstPlayerGoals.length,
                     ),
                     const SizedBox(width: 10, height: 10),
                     OutlinedButton(onPressed: goal1, child: const Text("GOAL!"))
@@ -98,11 +101,11 @@ class _GameScreenState extends State<GameScreen> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(widget.secondTeamName),
+                    Text(widget.secondPlayerName),
                     const SizedBox(width: 20, height: 20),
                     GoalScoreText(
                       goalLimit: widget.goalLimit,
-                      teamScore: secondTeamScore,
+                      playerScore: secondPlayerGoals.length,
                     ),
                     const SizedBox(width: 10, height: 10),
                     OutlinedButton(
@@ -119,10 +122,10 @@ class _GameScreenState extends State<GameScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => OverviewScreen(
-                                  widget.firstTeamName,
-                                  widget.secondTeamName,
-                                  firstTeamScore,
-                                  secondTeamScore,
+                                  widget.firstPlayerName,
+                                  widget.secondPlayerName,
+                                  firstPlayerGoals,
+                                  secondPlayerGoals,
                                   goalLimit: widget.goalLimit,
                                 )));
                   },
@@ -137,18 +140,19 @@ class _GameScreenState extends State<GameScreen> {
 
 class GoalScoreText extends StatelessWidget {
   const GoalScoreText(
-      {Key? key, required this.goalLimit, required this.teamScore})
+      {Key? key, required this.goalLimit, required this.playerScore})
       : super(key: key);
 
-  final int teamScore;
+  final int playerScore;
   final int? goalLimit;
 
   @override
   Widget build(BuildContext context) {
     if (goalLimit == null) {
-      return Text('$teamScore', style: Theme.of(context).textTheme.titleLarge);
+      return Text('$playerScore',
+          style: Theme.of(context).textTheme.titleLarge);
     } else {
-      return Text('$teamScore/$goalLimit',
+      return Text('$playerScore/$goalLimit',
           style: Theme.of(context).textTheme.titleLarge);
     }
   }

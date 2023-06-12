@@ -51,8 +51,8 @@ class ListItem extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                Text(data.firstTeamName),
-                Text(data.firstTeamScore.toString())
+                Text(data.firstPlayerName),
+                Text(data.firstPlayerGoals.length.toString())
               ],
             ),
           ),
@@ -60,8 +60,8 @@ class ListItem extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                Text(data.secondTeamName),
-                Text(data.secondTeamScore.toString())
+                Text(data.secondPlayerName),
+                Text(data.secondPlayerGoals.length.toString())
               ],
             ),
           )
@@ -87,10 +87,10 @@ class WinText extends StatelessWidget {
   final GameData data;
   @override
   Widget build(BuildContext context) {
-    if (data.firstTeamScore == data.goalLimit) {
-      return Text("${data.firstTeamName} Won.");
-    } else if (data.secondTeamScore == data.goalLimit) {
-      return Text("${data.secondTeamName} Won.");
+    if (data.firstPlayerGoals.length == data.goalLimit) {
+      return Text("${data.firstPlayerName} Won.");
+    } else if (data.secondPlayerGoals.length == data.goalLimit) {
+      return Text("${data.secondPlayerName} Won.");
     } else {
       return const Text("No goal limit or no team won.");
     }
